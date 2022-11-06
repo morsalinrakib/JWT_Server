@@ -2,7 +2,6 @@ const express = require("express");
 const cors = require("cors");
 const { MongoClient, ServerApiVersion, ObjectId } = require("mongodb");
 require("dotenv").config();
-
 const app = express();
 const port = process.env.PORT || 5000;
 
@@ -10,7 +9,9 @@ const port = process.env.PORT || 5000;
 app.use(cors());
 app.use(express.json());
 
-const uri = `mongodb+srv://${process.env.DB_USER}:${process.env_DB_PASSWORD}@genius-car.eeja04n.mongodb.net/?retryWrites=true&w=majority`;
+const uri = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASSWORD}@genius-car.eeja04n.mongodb.net/?retryWrites=true&w=majority`;
+
+console.log(process.env.DB_PASSWORD, process.env.DB_USER);
 
 const client = new MongoClient(uri, {
   useNewUrlParser: true,
@@ -20,8 +21,8 @@ const client = new MongoClient(uri, {
 
 async function run() {
   try {
-    const serviceCollection = client.db("geniusCar").collection("services");
-    const orderCollection = client.db("geniusCar").collection("orders");
+    const serviceCollection = client.db("GeniusCar").collection("services");
+    const orderCollection = client.db("GeniusCar").collection("Orders");
 
     app.get("/services", async (req, res) => {
       const query = {};
